@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { INewProductRequest } from '../interfaces/new-product-request';
-import { Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import { IProductsResponse } from '../interfaces/products-response';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,13 @@ export class ProductsService {
 
   private readonly _httpClient = inject(HttpClient);
 
-  saveProduct(product: INewProductRequest): Observable<INewProductRequest>{
-    return this._httpClient.post<INewProductRequest>('http://localhost:3000/api/products', product);
+  saveProduct(product: INewProductRequest): Observable<INewProductRequest> {
+    return this._httpClient.post<INewProductRequest>(environment.apiUrl + '/products', product);
 
   }
 
-  getProducts(): Observable<IProductsResponse>{
-    return this._httpClient.get<IProductsResponse>('http://localhost:3000/api/products');
+  getProducts(): Observable<IProductsResponse> {
+    return this._httpClient.get<IProductsResponse>(environment.apiUrl + '/products');
   }
-  
+
 }
